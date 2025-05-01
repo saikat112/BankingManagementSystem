@@ -19,30 +19,32 @@ public class AccountController {
         this.accountService = accountService;
     }
 
-//    add account rest api
+    //Add Account rest api
     @PostMapping
     public ResponseEntity<AccountDto> addAccount(@RequestBody @Valid AccountDto accountDto){
         return new ResponseEntity<>(accountService.createAccount(accountDto), HttpStatus.CREATED);
     }
-//    get account details
+    // Get Account Details By id
     @GetMapping("/{id}")
     public  ResponseEntity<AccountDto> getAccountById( @PathVariable Long id){
         AccountDto accountDto = accountService.getAccountById(id);
         return  ResponseEntity.ok(accountDto);
     }
+    // Amount Deposit
     @PutMapping("/{id}/deposit")
     public  ResponseEntity<AccountDto> deposit(@PathVariable Long id,@RequestBody Map<String, Double> request ){
         Double amount = request.get("amount");
         AccountDto accountDto =  accountService.deposit(id, amount);
         return ResponseEntity.ok(accountDto);
     }
-
+    //Amount Withdraw
     @PutMapping("/{id}/withdraw")
     public  ResponseEntity<AccountDto> withdraw(@PathVariable Long id, @RequestBody Map<String, Double> request){
         Double amount = request.get("amount");
         AccountDto accountDto = accountService.withdraw(id, amount);
         return ResponseEntity.ok(accountDto);
     }
+    // All Account Details
     @GetMapping
     public ResponseEntity<List<AccountDto>>getAllAccounts(){
         List<AccountDto> accountDto = accountService.getAllAccounts();
