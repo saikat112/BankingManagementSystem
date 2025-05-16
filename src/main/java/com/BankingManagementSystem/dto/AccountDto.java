@@ -4,7 +4,6 @@ public class   AccountDto  {
     private Long id;
     private String accountHolderName;
     private Double balance;
-
     public Long getId() {
         return id;
     }
